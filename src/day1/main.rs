@@ -49,7 +49,7 @@ mod test {
         for e in &[1721i32, 979, 366, 299, 675, 1456] {
             hs.insert(*e);
         }
-        let (e1, e2) = find_two_entries(&hs, 2020)?;
+        let (e1, e2) = find_two_entries(&hs, 2020).unwrap();
         assert_eq!(e1 * e2, 514579);
         Ok(())
     }
