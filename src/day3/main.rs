@@ -4,7 +4,7 @@ use anyhow::Context;
 #[derive(Copy, Clone, Debug)]
 enum Terrain {
     Tree,
-    Empty
+    Empty,
 }
 
 /// Representation of our terrain with automatic wrap around.
@@ -20,7 +20,7 @@ impl TerrainMap {
         let length = v.len();
         let width = v[0].len();
         // Will crash on empty vec. Too bad!
-        TerrainMap { v, width: width}
+        TerrainMap { v, width: width }
     }
 
     /// Access map with wrap around.
@@ -32,18 +32,20 @@ impl TerrainMap {
 fn make_tree(input: &str) -> TerrainMap {
     let mut v = Vec::new();
     for line in input.lines() {
-        let entries: Vec<Terrain> = line.chars().map(|c| match c {
-            '.' => Terrain::Empty,
-            '#' => Terrain::Tree,
-            c => panic!("Unknown input: {}", c),
-        }).collect();
+        let entries: Vec<Terrain> = line
+            .chars()
+            .map(|c| match c {
+                '.' => Terrain::Empty,
+                '#' => Terrain::Tree,
+                c => panic!("Unknown input: {}", c),
+            })
+            .collect();
 
         v.push(entries);
     }
 
     TerrainMap::new(v)
 }
-
 
 fn main() -> anyhow::Result<()> {
     let input = std::fs::read_to_string("./src/day3/input.txt").context("input not found.")?;
@@ -77,12 +79,11 @@ fn count_trees(tm: &TerrainMap, right: usize, down: usize) -> usize {
 
 #[cfg(test)]
 mod tests {
-    use crate::{make_tree, count_trees};
+    use crate::{count_trees, make_tree};
 
     #[test]
     fn part_one_example() {
-        let str =
-            "..##.......
+        let str = "..##.......
 #...#...#..
 .#....#..#.
 ..#.#...#.#
@@ -101,8 +102,7 @@ mod tests {
 
     #[test]
     fn part_two_example() {
-        let str =
-            "..##.......
+        let str = "..##.......
 #...#...#..
 .#....#..#.
 ..#.#...#.#
@@ -122,6 +122,4 @@ mod tests {
         let count5 = count_trees(&tm, 1, 2);
         assert_eq!(count1 * count2 * count3 * count4 * count5, 336);
     }
-
-
 }

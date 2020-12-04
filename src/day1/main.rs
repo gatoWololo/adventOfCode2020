@@ -1,7 +1,7 @@
+use anyhow::Result;
 use std::collections::HashSet;
-use anyhow::{Result};
 
-fn main() -> Result<()>{
+fn main() -> Result<()> {
     let input = std::fs::read_to_string("./src/day1/input.txt")?;
     let input = input.split_ascii_whitespace();
     let hs: HashSet<i32> = input.map(|s| s.parse::<i32>().unwrap()).collect();
@@ -39,9 +39,9 @@ fn find_three_entries(hs: &HashSet<i32>, target: i32) -> (i32, i32, i32) {
 
 #[cfg(test)]
 mod test {
-    use crate::{find_two_entries, find_three_entries};
-    use std::collections::HashSet;
+    use crate::{find_three_entries, find_two_entries};
     use anyhow::Result;
+    use std::collections::HashSet;
 
     #[test]
     fn test_find_two_entries() -> Result<()> {

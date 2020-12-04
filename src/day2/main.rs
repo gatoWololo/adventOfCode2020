@@ -7,34 +7,52 @@ struct Entry {
 }
 
 fn main() -> anyhow::Result<()> {
-
     let input = std::fs::read_to_string("./src/day2/input.txt")?;
-    let input: Vec<Entry> = input.lines().map(|line| {
-        let mut parts =  line.split_ascii_whitespace();
-        let part1 = parts.next().expect("input in wrong format");
-        let part2 = parts.next().expect("input in wrong format");
-        let part3 = parts.next().expect("input in wrong format");
+    let input: Vec<Entry> = input
+        .lines()
+        .map(|line| {
+            let mut parts = line.split_ascii_whitespace();
+            let part1 = parts.next().expect("input in wrong format");
+            let part2 = parts.next().expect("input in wrong format");
+            let part3 = parts.next().expect("input in wrong format");
 
-        let mut range = part1.split('-');
-        let min: usize = range.next().expect("input in wrong format").parse().expect("NAN");
-        let max: usize = range.next().expect("input in wrong format").parse().expect("NAN");
+            let mut range = part1.split('-');
+            let min: usize = range
+                .next()
+                .expect("input in wrong format")
+                .parse()
+                .expect("NAN");
+            let max: usize = range
+                .next()
+                .expect("input in wrong format")
+                .parse()
+                .expect("NAN");
 
-        let character = part2.chars().nth(0).unwrap();
+            let character = part2.chars().nth(0).unwrap();
 
-        let password = part3.to_string();
+            let password = part3.to_string();
 
-        Entry {
-            first: min,
-            second: max,
-            c: character,
-            password,
-        }
-    }).collect::<Vec<_>>();
+            Entry {
+                first: min,
+                second: max,
+                c: character,
+                password,
+            }
+        })
+        .collect::<Vec<_>>();
 
-    let count = input.iter().map(|e| validate_entry_policy1(e)).filter(|b| *b).count();
+    let count = input
+        .iter()
+        .map(|e| validate_entry_policy1(e))
+        .filter(|b| *b)
+        .count();
     println!("Valid Passwords Policy 1: {}", count);
 
-    let count = input.iter().map(|e| validate_entry_policy2(e)).filter(|b| *b).count();
+    let count = input
+        .iter()
+        .map(|e| validate_entry_policy2(e))
+        .filter(|b| *b)
+        .count();
     println!("Valid Passwords Policy 2: {}", count);
     Ok(())
 }
@@ -59,7 +77,7 @@ fn validate_entry_policy2(entry: &Entry) -> bool {
 
 #[cfg(test)]
 mod test {
-    use crate::{validate_entry_policy1, Entry, validate_entry_policy2};
+    use crate::{validate_entry_policy1, validate_entry_policy2, Entry};
 
     #[test]
     fn test1() {
@@ -69,7 +87,7 @@ mod test {
             c: 'b',
             password: "cdefg".to_string(),
         };
-        assert!(! validate_entry_policy1(&e));
+        assert!(!validate_entry_policy1(&e));
     }
 
     #[test]
@@ -91,7 +109,7 @@ mod test {
             c: 'c',
             password: "cccccccc".to_string(),
         };
-        assert!(! validate_entry_policy1(&e));
+        assert!(!validate_entry_policy1(&e));
     }
 
     #[test]
@@ -102,7 +120,7 @@ mod test {
             c: 'b',
             password: "cdefg".to_string(),
         };
-        assert!(! validate_entry_policy2(&e));
+        assert!(!validate_entry_policy2(&e));
     }
 
     #[test]
@@ -124,6 +142,6 @@ mod test {
             c: 'c',
             password: "cccccccc".to_string(),
         };
-        assert!(! validate_entry_policy2(&e));
+        assert!(!validate_entry_policy2(&e));
     }
 }
