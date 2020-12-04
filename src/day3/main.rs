@@ -17,7 +17,6 @@ struct TerrainMap {
 
 impl TerrainMap {
     fn new(v: Vec<Vec<Terrain>>) -> TerrainMap {
-        let length = v.len();
         let width = v[0].len();
         // Will crash on empty vec. Too bad!
         TerrainMap { v, width: width }
@@ -74,7 +73,6 @@ fn count_trees(tm: &TerrainMap, right: usize, down: usize) -> usize {
         i += right;
         j += down;
     }
-    trees
 }
 
 #[cfg(test)]
