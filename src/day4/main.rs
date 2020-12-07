@@ -56,9 +56,7 @@ fn is_valid_entry_part2(hs: &HashMap<&str, &str>) -> bool {
         return false;
     }
 
-    let v= do_valid(hs);
-    // dbg!(&v);
-    v.is_ok()
+    do_valid(hs).is_ok()
 }
 
 fn do_valid(hs: &HashMap<&str, &str>) -> anyhow::Result<()> {
